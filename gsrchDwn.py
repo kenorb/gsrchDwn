@@ -22,6 +22,9 @@ import urllib2
 import urllib
 import os.path as ospath
 
+# Activate Python Debugger if required
+# import pdb
+
 global rem_file # global variable to be used in dlProgress
 
 def dlProgress(count, blockSize, totalSize):
@@ -94,7 +97,7 @@ try:
                     continue
 
             #Temp trace
-            #pdb.set_trace()  
+            #pdb.set_trace()
 
             rem_file = res.title.encode("utf8") #rem_file used in download progress 
             loc_file =  dwn_dir + os.sep + temp_url.split("/")[-1]
