@@ -237,7 +237,7 @@ class GoogleSearch(object):
     def _extract_result(self, result):
         title, url = self._extract_title_url(result)
         desc = self._extract_description(result)
-        if not title or not url or not desc:
+        if not title or not url:
             return None
         return SearchResult(title, url, desc)
 
