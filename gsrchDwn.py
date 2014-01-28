@@ -8,8 +8,15 @@
 # Continue function "-c ResultNo" would continue from c number upwards downloading of files
 # 
 import os.path, sys
-sys.path.insert(0, "xgoogle") # Add current xgoogle dir to search path
+
+# Add current xgoogle dir to search path
+sys.path.insert(0, "xgoogle")
+# Add directory of target file (e.g. of symbolic link)
+sys.path.insert(0, os.path.dirname(os.path.abspath(os.path.realpath(__file__))) + "/xgoogle")
+
+# Load xgoogle package
 from xgoogle.search import GoogleSearch, SearchError
+
 import getopt
 import urllib2
 import urllib
@@ -90,7 +97,7 @@ try:
             #pdb.set_trace()  
 
             rem_file = res.title.encode("utf8") #rem_file used in download progress 
-            loc_file =  dwn_dir + "\\" + temp_url.split("/")[-1]
+            loc_file =  dwn_dir + os.sep + temp_url.split("/")[-1]
 
             if ospath.isfile(loc_file):
                 print "File already exist: ",loc_file
