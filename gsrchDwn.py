@@ -7,8 +7,9 @@
 # This program will automatically add "filetype:pdf" to the searched query
 # Continue function "-c ResultNo" would continue from c number upwards downloading of files
 # 
+import os.path, sys
+sys.path.insert(0, "xgoogle") # Add current xgoogle dir to search path
 from xgoogle.search import GoogleSearch, SearchError
-import sys
 import getopt
 import urllib2
 import urllib
