@@ -56,9 +56,7 @@ for o, a in opts:
         n_cnt = int(a)
     if o == "--dir":
         dwn_dir = a.replace('\\',"\\\\")
-        
-  
-    
+
 if query == '':
     print ('python gsrchDwn.py --query [query_text] [--ftype file_extension] [--cnt contine_result_number] [--dir download_dir]')
     sys.exit(2)
@@ -67,9 +65,9 @@ if query == '':
 try:
 
     cnt = 0
-    
+
     gs = GoogleSearch(query)
-    gs.filetype = mfiletype    
+    gs.filetype = mfiletype
     gs.results_per_page = 50
     pgCnt = 1
 
@@ -82,13 +80,13 @@ try:
         gs.page = pgCnt
         results = gs.get_results()
         pgCnt = pgCnt +1  #Increase page count to next page
-        
+
         if not results: # no more results were found
             break
 
         for res in results:
             cnt = cnt +1
-            print "Serach No. : ",str(cnt)      
+            print "Search No. : ",str(cnt)
             print res.title.encode("utf8")
             print res.desc.encode("utf8")
             temp_url = res.url.encode("utf8")
@@ -106,12 +104,12 @@ try:
                 print "File already exist: ",loc_file
                 print "Not downloading file"
                 continue
-            
+
             print "Now downloading... ", temp_url
             print
-            
+
             try:
-                urllib.urlretrieve(temp_url, loc_file, reporthook=dlProgress)    
+                urllib.urlretrieve(temp_url, loc_file, reporthook=dlProgress)
                 print "Download Complete: ", loc_file
             except IOError:
                 print "***Unable to Download file:IOError ",rem_file
