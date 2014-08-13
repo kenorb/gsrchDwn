@@ -88,7 +88,7 @@ try:
             cnt = cnt +1
             print "Search No. : ",str(cnt)
             print res.title.encode("utf8")
-            print res.desc.encode("utf8")
+            # print res.desc.encode("utf8")
             temp_url = res.url.encode("utf8")
             if n_cnt <> 0:
                  if cnt < n_cnt:
