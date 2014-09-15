@@ -76,6 +76,8 @@ try:
 
     #import pdb
 
+    lastUrl = None
+
     while True:
         gs.page = pgCnt
         results = gs.get_results()
@@ -94,6 +96,14 @@ try:
                  if cnt < n_cnt:
                     continue
 
+            if lastUrl == temp_url:
+            # Loop detected.
+                print "Download loop detected, probably there are no more pages. Stopping"
+                results = None
+                break
+
+            lastUrl = temp_url
+
             #Temp trace
             #pdb.set_trace()
 
@@ -109,7 +119,18 @@ try:
             print
 
             try:
-                urllib.urlretrieve(temp_url, loc_file, reporthook=dlProgress)
+                req = urllib2.Request(temp_url, None, {
+                    'Accept-Encoding': 'deflate',
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:32.0) Gecko/20100101 Firefox/32.0',
+                    'Referer': temp_url
+                });
+
+                response = urllib2.urlopen(req)
+
+                file = open(loc_file, 'w')
+                file.write(response.read())
+                file.close()
+
                 print "Download Complete: ", loc_file
             except IOError:
                 print "***Unable to Download file:IOError ",rem_file
@@ -117,6 +138,10 @@ try:
             except:
                 print "***Unable to Download file:Unknown Error ",rem_file
                 print "Continuing with Next result."
+
+        if not results: # forcibly stopping download
+            print "Done."
+            break
 
 
 except SearchError, e:
